@@ -1,0 +1,50 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.
+# Mandatory items:
+
+[general]
+name=Sequential Numbering
+qgisMinimumVersion=4.0
+qgisMaximumVersion=4.99
+description=Sequential attribute numbering tool
+version=0.1
+author=Adesh K
+email=kadesh629@hotmail.com
+
+about=An interactive QGIS plugin to sequentially number vector features on the fly simply by clicking them in the map canvas. Streamline your digitizing and data-entry workflows with this intuitive, click-based numbering tool. Instead of manually editing attribute tables or writing complex expressions, you can populate feature fields sequentially with a single click. Simply select your target vector layer, choose the destination field, define your starting integer, and set your custom increment step. Once activated, clicking on any geometry directly on your map canvas automatically writes the next sequential number into its attribute field. This tool is perfect for asset management, parcel numbering, field survey data cleaning, or any workflow that requires spatial ordering based on human decision-making rather than automated sorting. Click-to-Number: Update attribute values dynamically by clicking directly on map geometries. Field Target Selection: Works with any existing integer or text field in your active layer. Instant Feedback: Automatically saves or prepares edits, significantly reducing data entry time.
+
+tracker=https://github.com
+repository=https://github.com
+license=GNU GPL v2
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=no
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=python
+
+homepage=https://github.com
+category=Plugins
+icon=icon.png
+# experimental flag
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+# Category of the plugin: Raster, Vector, Database or Web
+# category=
+
+# If the plugin can run on QGIS Server.
+server=False
+

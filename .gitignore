@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+*.bak
+*.swp
+.vscode/
+.idea/
+
+*.zip
+
+plugin_upload.py
