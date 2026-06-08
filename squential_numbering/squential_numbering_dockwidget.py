@@ -23,7 +23,8 @@
 """
 
 import os
-
+from qgis.utils import iface
+from .numbering_tool import NumberingMapTool
 from qgis.PyQt import QtGui, QtWidgets, uic
 from qgis.PyQt.QtCore import pyqtSignal
 from qgis.core import QgsProject, QgsMapLayer
@@ -50,12 +51,15 @@ class SequentialNumberingDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.cmbLayer.currentIndexChanged.connect(
             self.load_fields
         )
+        self.btnStart.clicked.connect(
+            self.start_numbering
+)
     
     def load_layers(self):
 
         self.cmbLayer.clear()
 
-        self.layers.clear()
+        self.layers = []
 
         for layer in QgsProject.instance().mapLayers().values():
 
@@ -65,24 +69,62 @@ class SequentialNumberingDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
                 self.cmbLayer.addItem(layer.name())
 
-        self.load_fields()
+        if self.layers:
+            self.cmbLayer.setCurrentIndex(0)
+            self.load_fields()
 
     def load_fields(self):
+
+        print("Layer Count:", len(self.layers))
+        print("Current Index:", self.cmbLayer.currentIndex())
 
         self.cmbField.clear()
 
         if not self.layers:
             return
 
-        layer = self.layers[
-            self.cmbLayer.currentIndex()
-        ]
+        idx = self.cmbLayer.currentIndex()
+
+        if idx < 0:
+            return
+
+        if idx >= len(self.layers):
+            return
+
+        layer = self.layers[idx]
 
         for field in layer.fields():
 
             self.cmbField.addItem(
                 field.name()
             )
+    def get_selected_layer(self):
+
+        if not self.layers:
+            return None
+
+        layer = self.layers[
+            self.cmbLayer.currentIndex()
+        ]
+
+        print("Selected Layer:", layer.name())
+
+        return layer
+
+    def start_numbering(self):
+
+        self.map_tool = NumberingMapTool(
+            iface.mapCanvas(),
+            self
+        )
+
+        iface.mapCanvas().setMapTool(
+            self.map_tool
+        )
+
+        print("Numbering tool started")
+
+    
 
     def closeEvent(self, event):
         self.closingPlugin.emit()
